@@ -1,0 +1,37 @@
+const express = require('express');
+const meetingsRouter = express.Router();
+const {
+    createMeeting,
+    getAllFromDatabase,
+    getFromDatabaseById,
+    addToDatabase,
+    updateInstanceInDatabase,
+    deleteFromDatabasebyId,
+    deleteAllFromDatabase,
+  } = require('./db');
+
+
+// 'minions', 'ideas', 'meetings', or 'work'
+// Meeting
+
+//     time: string
+//     date: JS Date object
+//     day: string
+//     note: string
+
+
+meetingsRouter.get('/', (req, res, next) => {
+    res.send(getAllFromDatabase('meetings'));
+});
+
+
+meetingsRouter.post('/', (req, res, next) => {
+    res.status(201).send(addToDatabase('meetings', createMeeting()));
+})
+
+
+meetingsRouter.delete('/', (req, res, next) => {
+    res.status(204).send(deleteAllFromDatabase('meetings'));
+})
+
+module.exports = meetingsRouter;
